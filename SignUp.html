@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SignUp Page</title>
+</head>
+<body>
+<!--FaceBook JS import-->
+	<script src="facebookSDK.js"></script>
+	<script src="source.js"></script>
+
+<!--Linkedin JS imports and script files-->
+	<script type="text/javascript" src="//platform.linkedin.com/in.js">
+		api_key: 81gaoi03xf4zww
+	  onLoad: onLinkedInLoad
+	  authorize: true
+	</script>
+	<script type="in/Login"></script>
+	<script type="text/javascript">
+		function onLinkedInLoad() {
+        IN.Event.on(IN, "auth", getProfileData);
+    }
+
+	  var getProfileData = function() { // Use the API call wrapper to request the member's basic profile data
+	    IN.API.Profile("me").fields("id,firstName,lastName,picture-urls::(original),public-profile-url,location:(name)").result(function (me) {
+	        var profile = me.values[0];
+	        var id = profile.id;
+	        var firstName = profile.firstName;
+	        var lastName = profile.lastName;
+	        var pictureUrl = profile.pictureUrls.values[0];
+	        var profileUrl = profile.publicProfileUrl;
+	        var country = profile.location.name;
+	        document.getElementById('Linkedin_User_Details').innerHTML = '\Linked in Account\'s <br> FirstName= '+firstName+' <br> LastName= '+lastName+' <br> Country= '+country;
+	    });
+    }
+	</script>
+	<fb:login-button 
+	  scope="public_profile,email,user_birthday"
+	  onlogin="checkLoginState();">
+	</fb:login-button>
+	<div id="status"></div>
+	<div id="FbUserDetails"></div>
+	<div id="Linkedin_User_Details"></div>
+</body> 
+</html>
